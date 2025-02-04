@@ -6,7 +6,7 @@ const { digit_sum } = require("../util/sum");
 const { fetchFunFact } = require("../models/api");
 
 exports.getNumber = async (req, res, next) => {
-  const num = +req.query.number;
+  const num = +req.query.number || 0;
 
   try {
     const fetchFun = await fetchFunFact(num);

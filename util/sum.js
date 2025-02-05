@@ -1,7 +1,4 @@
-exports.digit_sum = (number) => {
-  // if(number.toString().("-")) {
-  //   console.log("yes")
-  // }
+exports.digit_sum = (number) => { 
   const sum = Math.abs(number)
     .toString()
     .split("")

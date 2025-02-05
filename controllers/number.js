@@ -3,10 +3,11 @@ const { is_perfect } = require("../util/isPerfect");
 
 const { isArmstrong } = require("../util/isArmstrong");
 const { digit_sum } = require("../util/sum");
-const { fetchFunFact } = require("../models/api");
+const { fetchFunFact } = require("../models/api"); 
 
 exports.getNumber = async (req, res, next) => { 
-  const num = req.query.number;
+  const num = req.query.number
+  
   if (!num) {
     res.status(400).json({ number: null, error: true });
     return;
@@ -14,14 +15,11 @@ exports.getNumber = async (req, res, next) => {
   let properties = [];
 
   // try {
-  const intNum = parseInt(num, 10);
+  const intNum = Math.floor(num);
   if (isNaN(intNum)) {
     res.status(400).json({ number: num, error: true });
     return;
   }
-
-
-
 
   if (isArmstrong(intNum)) {
     properties.push("armstrong");

@@ -5,16 +5,23 @@ const { isArmstrong } = require("../util/isArmstrong");
 const { digit_sum } = require("../util/sum");
 const { fetchFunFact } = require("../models/api");
 
-exports.getNumber = async (req, res, next) => {
+exports.getNumber = async (req, res, next) => { 
   const num = req.query.number;
-  const intNum = parseInt(num, 10);
+  if (!num) {
+    res.status(400).json({ number: null, error: true });
+    return;
+  }
   let properties = [];
 
   // try {
+  const intNum = parseInt(num, 10);
   if (isNaN(intNum)) {
-    res.status(400).json({ number: num ? num : "null", error: true });
+    res.status(400).json({ number: num, error: true });
     return;
   }
+
+
+
 
   if (isArmstrong(intNum)) {
     properties.push("armstrong");

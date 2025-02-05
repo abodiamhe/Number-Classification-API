@@ -23,26 +23,10 @@ app.use((req, res, next) => {
 
 app.use(numberRoutes);
 
-app.use(function(req, res, next) {
-  res.status(404);
-
-  // respond with html page
-  // if (req.accepts('html')) {
-  //   res.render('404', { url: req.url });
-  //   return;
-  // }
-
-  // respond with json
-  if (req.accepts('json')) {
-    res.json({ error: 'Not found' });
-    return;
-  }
-
-  // default to plain-text. send()
-  res.type('txt').send('Not found');
+app.use((req, res, next) => {
+    res.status(404).json({ error: 'Not found' });
 });
  
-
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
   res.status(status).json({ message: "An error occured" });

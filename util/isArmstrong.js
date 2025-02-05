@@ -6,7 +6,6 @@ exports.isArmstrong = (number) => {
   for (let i = 0; i < numberOfDigits; i++) {
     sum += Math.pow(Number(numberString[i]), numberOfDigits);
   }
-  if (sum === number) {
-    return "armstrong";
-  }
+  
+  return sum === number;
 };

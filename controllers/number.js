@@ -1,34 +1,34 @@
 const { isPrime } = require("../util/isPrime");
 const { is_perfect } = require("../util/isPerfect");
+
 const { isArmstrong } = require("../util/isArmstrong");
-const { parity } = require("../util/parity");
 const { digit_sum } = require("../util/sum");
 const { fetchFunFact } = require("../models/api");
 
 exports.getNumber = async (req, res, next) => {
   const num = req.query.number;
   const intNum = parseInt(num, 10);
+  let properties = [];
 
-  try {
-    if (isNaN(intNum)) {
-      res.status(400).json({ number: num ? num : "null", error: true });
-      return;
-    }
-
-    const fetchFun = await fetchFunFact(intNum);
-
-    res.status(200).json({
-      number: intNum,
-      is_prime: isPrime(intNum),
-      is_perfect: is_perfect(intNum),
-      properties: isArmstrong(intNum)
-        ? [isArmstrong(intNum), parity(intNum)]
-        : [parity(intNum)],
-      digit_sum: digit_sum(intNum),
-      fun_fact: fetchFun,
-    });
-  } catch (err) {
-    err.statusCode = 500;
-    next(err);
+  // try {
+  if (isNaN(intNum)) {
+    res.status(400).json({ number: num ? num : "null", error: true });
+    return;
   }
+
+  if (isArmstrong(intNum)) {
+    properties.push("armstrong");
+  }
+  properties.push(intNum % 2 === 0 ? "even" : "odd");
+
+  const fetchFun = await fetchFunFact(intNum);
+
+  res.status(200).json({
+    number: intNum,
+    is_prime: isPrime(intNum),
+    is_perfect: is_perfect(intNum),
+    properties,
+    digit_sum: digit_sum(intNum),
+    fun_fact: fetchFun,
+  });
 };

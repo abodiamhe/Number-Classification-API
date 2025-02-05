@@ -11,7 +11,7 @@ exports.getNumber = async (req, res, next) => {
 
   try {
     if (isNaN(intNum)) {
-      res.status(400).json({ number: num, error: true });
+      res.status(400).json({ number: num ? num : "null", error: true });
       return;
     }
 

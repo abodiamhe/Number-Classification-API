@@ -11,7 +11,8 @@ exports.getNumber = async (req, res, next) => {
 
   try {
     if (isNaN(intNum)) {
-      throw new Error("Not a number");
+      res.status(400).json({ number: num, error: true });
+      return;
     }
 
     const fetchFun = await fetchFunFact(intNum);
